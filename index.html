@@ -17,109 +17,136 @@
 <style>
 :root{--cr:#FCF0E0;--bg:#F1E3CB;--az:#103850;--oc:#B47614;--gr:#5E666A;--ln:#D8CCB4}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:var(--bg);color:var(--az);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
-.app{height:100%;display:flex;flex-direction:column;align-items:center;padding:max(10px,env(safe-area-inset-top)) 12px max(10px,env(safe-area-inset-bottom))}
-.top{width:var(--sw);display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:34px;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+html,body{background:var(--bg);color:var(--az);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body.full{overflow:hidden;height:100%}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;justify-content:center;padding:max(8px,env(safe-area-inset-top)) 8px 6px}
+.top .in{width:var(--sw);display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:32px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
 .top .t{font-weight:700;color:var(--oc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .top .c{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--gr);letter-spacing:.04em;white-space:nowrap}
-.stagewrap{position:relative;flex:1;width:100%;display:flex;align-items:center;justify-content:center;min-height:0}
-.viewport{position:relative;width:var(--sw);height:var(--sh);overflow:hidden;border-radius:6px;box-shadow:0 10px 30px rgba(16,56,80,.18);background:var(--cr);touch-action:pan-y}
+.size{font:700 12px system-ui,sans-serif;letter-spacing:.04em;text-transform:none;color:var(--az);background:transparent;border:2px solid var(--az);border-radius:6px;padding:5px 10px;cursor:pointer;white-space:nowrap}
+.main{display:flex;justify-content:center;padding:0 8px}
+.viewport{position:relative;width:var(--sw);height:var(--sh);overflow:hidden;border-radius:6px;box-shadow:0 10px 30px rgba(16,56,80,.18);background:var(--cr);touch-action:pan-y pinch-zoom}
 .track{display:flex;height:100%;transition:transform .38s cubic-bezier(.2,.7,.2,1);will-change:transform}
 .track.drag{transition:none}
 .slide{flex:0 0 100%;height:100%;position:relative;background:var(--cr)}
 .slide img{width:100%;height:100%;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none}
 .slide iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--cr)}
-.nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:2px solid var(--az);background:rgba(252,240,224,.92);color:var(--az);font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.nav{position:fixed;top:50%;transform:translateY(-50%);z-index:6;width:56px;height:56px;border-radius:50%;border:2px solid var(--az);background:rgba(252,240,224,.95);color:var(--az);font-size:28px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .nav:disabled{opacity:.25;cursor:default}
-.nav.prev{left:calc(50% - var(--sw)/2 - 68px)}.nav.next{right:calc(50% - var(--sw)/2 - 68px)}
-.bottom{width:var(--sw);padding-top:10px}
+.nav.prev{left:calc(50% - var(--sw)/2 - 72px)}.nav.next{right:calc(50% - var(--sw)/2 - 72px)}
+.bottom{position:sticky;bottom:0;z-index:5;background:var(--bg);display:flex;justify-content:center;padding:8px 8px max(8px,env(safe-area-inset-bottom))}
+.bottom .in{width:var(--sw)}
 .bar{height:4px;background:var(--ln);border-radius:2px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--oc);transition:width .38s}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;min-height:44px}
-.row .m{display:none;gap:8px}
-.btn{font:700 14px system-ui,sans-serif;color:var(--az);background:transparent;border:2px solid var(--az);border-radius:6px;min-height:44px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;white-space:nowrap}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px}
+.btn{font:700 15px system-ui,sans-serif;color:var(--az);background:transparent;border:2px solid var(--az);border-radius:6px;min-height:46px;padding:0 14px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;white-space:nowrap}
 .btn.solid{background:var(--az);color:var(--cr)}
-.hint{font-size:13px;color:var(--gr);text-align:center;flex:1}
-.simlink{display:none}.simlink .sh{display:none}.onsim .simlink{display:inline-flex}.onsim .hint{display:none}
+.btn:disabled{opacity:.3;cursor:default}
+.grow{flex:1}
+.hint{font-size:13px;color:var(--gr);text-align:center;margin-top:6px}
 :focus-visible{outline:3px solid var(--oc);outline-offset:3px}
-@media (max-width:820px){.nav{display:none}.row .m{display:flex}.hint{display:none}.onsim .simlink{flex:1}.simlink .lg{display:none}.simlink .sh{display:inline}.onsim #pdf{display:none}}
+/* lupa */
+.zoom{position:fixed;inset:0;z-index:20;background:#1c2a33;display:flex;flex-direction:column}
+.zoom[hidden]{display:none}
+.zbar{display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top)) 10px 8px;background:var(--bg)}
+.zbar .btn{min-height:42px;padding:0 12px}
+.zl{font:700 14px ui-monospace,Menlo,monospace;min-width:52px;text-align:center}
+.zs{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y pinch-zoom}
+.zs img{display:block;margin:0 auto;max-width:none;background:var(--cr)}
+.zh{font-size:12px;color:var(--gr);flex:1;text-align:center}
+@media (max-width:820px){.nav{display:none}.hint{display:none}.size{display:none}.top .in{font-size:11px}}
+@media (min-width:821px){.m-only{display:none}}
 @media (prefers-reduced-motion:reduce){.track,.bar i{transition:none}}
 </style>
 </head>
 <body>
-<div class="app" id="app">
-  <div class="top"><span class="t">Acueducto Plan Café – El Valle</span><span class="c" id="count">01 / 21</span></div>
-  <div class="stagewrap">
-    <button class="nav prev" id="prev" type="button" aria-label="Lámina anterior">‹</button>
-    <div class="viewport" id="vp" role="region" aria-roledescription="carrusel" aria-label="Presentación del acueducto">
-      <div class="track" id="track"></div>
-    </div>
-    <button class="nav next" id="next" type="button" aria-label="Lámina siguiente">›</button>
+<div class="top"><div class="in"><span class="t">Acueducto Plan Café – El Valle</span><button class="size" id="size" type="button">Ver más grande</button><span class="c" id="count">01 / 21</span></div></div>
+<div class="main"><div class="viewport" id="vp" role="region" aria-roledescription="carrusel" aria-label="Presentación del acueducto"><div class="track" id="track"></div></div></div>
+<button class="nav prev" id="prev" type="button" aria-label="Lámina anterior">‹</button>
+<button class="nav next" id="next" type="button" aria-label="Lámina siguiente">›</button>
+<div class="bottom"><div class="in">
+  <div class="bar"><i id="prog"></i></div>
+  <div class="row">
+    <button class="btn m-only" id="prev2" type="button" aria-label="Lámina anterior">‹</button>
+    <button class="btn grow" id="zbtn" type="button">🔍 Ampliar lámina</button>
+    <a class="btn" id="pdf" href="Acueducto_PlanCafe_ElValle_carrusel.pdf" download>PDF</a>
+    <button class="btn solid m-only" id="next2" type="button" aria-label="Lámina siguiente">›</button>
   </div>
-  <div class="bottom">
-    <div class="bar"><i id="prog"></i></div>
-    <div class="row">
-      <span class="m"><button class="btn" id="prev2" type="button" aria-label="Lámina anterior">‹ Anterior</button></span>
-      <a class="btn simlink" href="simulacion.html" target="_blank" rel="noopener"><span class="lg">Abrir simulación completa</span><span class="sh">Ampliar</span>&nbsp;↗</a>
-      <span class="hint">Deslice o use las flechas ← →</span>
-      <span class="m"><button class="btn solid" id="next2" type="button" aria-label="Lámina siguiente">Siguiente ›</button></span>
-      <a class="btn" id="pdf" href="Acueducto_PlanCafe_ElValle_carrusel.pdf" download>PDF</a>
-    </div>
-  </div>
+  <div class="hint">Deslice o use las flechas ← → · doble clic en una lámina para ampliarla</div>
+</div></div>
+<div class="zoom" id="zoom" hidden role="dialog" aria-label="Lámina ampliada">
+  <div class="zbar"><button class="btn" id="zout" type="button" aria-label="Alejar">−</button><span class="zl" id="zl">100%</span><button class="btn" id="zin" type="button" aria-label="Acercar">+</button><span class="zh">Mueva con el dedo para leer</span><button class="btn solid" id="zclose" type="button">Cerrar ✕</button></div>
+  <div class="zs" id="zs"><img id="zimg" alt=""></div>
 </div>
 <script>
 (function(){
 const ALT=['Acueducto Plan Café – El Valle','La necesidad: caminar 4–5 km por agua','Ubicación: del manantial a las llaves','El proyecto en cifras','La solución: qué se va a construir','Cuatro fases',
  null,
  'Perfil: baja 413 m sin bombas','Corte: un tanque de 40.8 m³','Diseñado con normas','Cálculo: la toma cubre la demanda','Seguridad: tanques seguros','Presupuesto: RD$ 17.5 millones','Fase 1: la columna vertebral','Pareto: cinco partidas suman el 73 %','Cronograma: 14 meses en 4 fases','Operación: la comunidad lo opera','Sostenibilidad: menos de RD$ 110 al mes','Impacto: lo que cambia en la comunidad','Antes y después: un diseño corregido','La petición: apadrina una fase'];
-const SIM=6; // posición (0-based) de la lámina interactiva, después de «Cuatro fases»
-const N=ALT.length, track=document.getElementById('track'), vp=document.getElementById('vp'), app=document.getElementById('app');
-let png=1;
+const SIM=6;
+const N=ALT.length, track=document.getElementById('track'), vp=document.getElementById('vp'), $=id=>document.getElementById(id);
+const src=[];let png=1;
 ALT.forEach((alt,i)=>{
   const s=document.createElement('div'); s.className='slide'; s.setAttribute('role','group'); s.setAttribute('aria-roledescription','lámina'); s.setAttribute('aria-label',(i+1)+' de '+N);
-  if(i===SIM){ s.dataset.sim='1'; }
-  else { const im=new Image(); im.alt=alt; im.decoding='async'; im.dataset.src='lamina_'+String(png).padStart(2,'0')+'.png'; png++; s.appendChild(im); }
+  if(i===SIM){ s.dataset.sim='1'; src.push(null); }
+  else { const im=new Image(); im.alt=alt; im.decoding='async'; im.dataset.src='lamina_'+String(png).padStart(2,'0')+'.png'; src.push(im.dataset.src); png++; s.appendChild(im); }
   track.appendChild(s);
 });
 const slides=[...track.children];
 function load(i){ const s=slides[i]; if(!s) return;
-  if(s.dataset.sim){ if(!s.querySelector('iframe')){ const f=document.createElement('iframe'); f.src='sim-lamina.html'; f.title='Simulación interactiva: así llega el agua, por fases'; f.loading='eager'; s.appendChild(f);} return; }
+  if(s.dataset.sim){ if(!s.querySelector('iframe')){ const f=document.createElement('iframe'); f.src='sim-lamina.html'; f.title='Simulación interactiva: así llega el agua, por fases'; s.appendChild(f);} return; }
   const im=s.querySelector('img'); if(im && !im.src) im.src=im.dataset.src; }
-// tamaño de la lámina 4:5 que quepa en la pantalla
+// tamaño: «grande» = a lo ancho de la ventana (se baja para ver el resto); «pantalla» = la lámina entera a la vista
+const wideScreen=()=>innerWidth>820;
+let big=true; try{ const v=localStorage.getItem('acu-size'); if(v) big=v==='big'; }catch(_){}
 function size(){
-  const W=innerWidth, H=innerHeight, wide=W>820;
-  const availW=W-(wide?180:24), availH=H-(wide?120:130);
-  let w=Math.min(availW, availH*0.8, 1080); w=Math.max(220,Math.floor(w));
-  app.style.setProperty('--sw',w+'px'); app.style.setProperty('--sh',Math.round(w*1.25)+'px');
+  const W=innerWidth,H=innerHeight; const side=wideScreen()?170:16;
+  let w=W-side; if(!big||!wideScreen()){ const chrome=wideScreen()?150:140; w=Math.min(w,(H-chrome)*0.8); }
+  if(!wideScreen()) w=W-16;
+  w=Math.max(240,Math.min(Math.floor(w),wideScreen()?920:1100));
+  document.documentElement.style.setProperty('--sw',w+'px'); document.documentElement.style.setProperty('--sh',Math.round(w*1.25)+'px');
+  $('size').textContent=big?'Ver lámina completa':'Ver más grande';
 }
 addEventListener('resize',size); size();
+$('size').addEventListener('click',()=>{ big=!big; try{localStorage.setItem('acu-size',big?'big':'fit');}catch(_){} size(); });
 let cur=0;
 function go(i,fromHash){
-  cur=Math.max(0,Math.min(N-1,i));
+  const prev=cur; cur=Math.max(0,Math.min(N-1,i));
   track.style.transform='translateX('+(-cur*100)+'%)';
   for(let k=cur-1;k<=cur+2;k++) load(k);
-  document.getElementById('count').textContent=String(cur+1).padStart(2,'0')+' / '+N;
-  document.getElementById('prog').style.width=((cur+1)/N*100)+'%';
-  ['prev','prev2'].forEach(id=>document.getElementById(id).disabled=cur===0);
-  ['next','next2'].forEach(id=>document.getElementById(id).disabled=cur===N-1);
-  app.classList.toggle('onsim',cur===SIM);
+  $('count').textContent=String(cur+1).padStart(2,'0')+' / '+N;
+  $('prog').style.width=((cur+1)/N*100)+'%';
+  ['prev','prev2'].forEach(id=>$(id).disabled=cur===0);
+  ['next','next2'].forEach(id=>$(id).disabled=cur===N-1);
+  $('zbtn').textContent= cur===SIM ? '🔍 Simulación completa ↗' : '🔍 Ampliar lámina';
   slides.forEach((s,k)=>s.setAttribute('aria-hidden',String(k!==cur)));
   if(!fromHash) history.replaceState(null,'','#'+(cur+1));
+  if(prev!==cur && scrollY>0) scrollTo({top:0,behavior:'smooth'});
+  if(!$('zoom').hidden) openZoom();
 }
-['prev','prev2'].forEach(id=>document.getElementById(id).addEventListener('click',()=>go(cur-1)));
-['next','next2'].forEach(id=>document.getElementById(id).addEventListener('click',()=>go(cur+1)));
-addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key==='PageDown'){go(cur+1);e.preventDefault();} else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(cur-1);e.preventDefault();} else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(N-1);} });
-// deslizar con el dedo o el mouse
-let x0=null,y0=0,dx=0,t0=0,horiz=null;
-vp.addEventListener('pointerdown',e=>{ if(e.button>0) return; x0=e.clientX; y0=e.clientY; dx=0; horiz=null; t0=Date.now(); });
+['prev','prev2'].forEach(id=>$(id).addEventListener('click',()=>go(cur-1)));
+['next','next2'].forEach(id=>$(id).addEventListener('click',()=>go(cur+1)));
+addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('zoom').hidden){closeZoom();return;}
+  if(e.key==='ArrowRight'||e.key==='PageDown'){go(cur+1);e.preventDefault();} else if(e.key==='ArrowLeft'||e.key==='PageUp'){go(cur-1);e.preventDefault();} else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(N-1);} });
+// lupa
+const LV=[1,1.5,2,2.5,3,4]; let lv=wideScreen()?0:2;
+function zoomSize(){ const base=Math.min(innerWidth-16,1100); $('zimg').style.width=Math.round(base*LV[lv])+'px'; $('zl').textContent=Math.round(LV[lv]*100)+'%'; $('zout').disabled=lv===0; $('zin').disabled=lv===LV.length-1; }
+function openZoom(){ if(cur===SIM){ window.open('simulacion.html','_blank','noopener'); return; } $('zimg').src=src[cur]; $('zimg').alt=ALT[cur]; $('zoom').hidden=false; document.body.classList.add('full'); zoomSize(); }
+function closeZoom(){ $('zoom').hidden=true; document.body.classList.remove('full'); }
+$('zbtn').addEventListener('click',openZoom); $('zclose').addEventListener('click',closeZoom);
+$('zin').addEventListener('click',()=>{ if(lv<LV.length-1){lv++;zoomSize();} }); $('zout').addEventListener('click',()=>{ if(lv>0){lv--;zoomSize();} });
+addEventListener('resize',()=>{ if(!$('zoom').hidden) zoomSize(); });
+// deslizar (un dedo) y doble toque para ampliar
+let x0=null,y0=0,dx=0,t0=0,horiz=null,pts=0,lastTap=0;
+vp.addEventListener('pointerdown',e=>{ pts++; if(pts>1){ x0=null; track.classList.remove('drag'); go(cur); return; } if(e.button>0) return; x0=e.clientX; y0=e.clientY; dx=0; horiz=null; t0=Date.now(); });
 vp.addEventListener('pointermove',e=>{ if(x0===null) return; const ddx=e.clientX-x0, ddy=e.clientY-y0;
   if(horiz===null && (Math.abs(ddx)>8||Math.abs(ddy)>8)){ horiz=Math.abs(ddx)>Math.abs(ddy); if(horiz){ track.classList.add('drag'); try{vp.setPointerCapture(e.pointerId);}catch(_){} } }
   if(horiz){ dx=ddx; const edge=(cur===0&&dx>0)||(cur===N-1&&dx<0)?.35:1; track.style.transform='translateX(calc('+(-cur*100)+'% + '+(dx*edge)+'px))'; } });
-function end(){ if(x0===null) return; track.classList.remove('drag');
+function end(e){ pts=Math.max(0,pts-1); if(x0===null) return; track.classList.remove('drag');
   if(horiz){ const w=vp.clientWidth, fast=Math.abs(dx)>30&&Date.now()-t0<300; if(dx<-w*.18||(fast&&dx<0)) go(cur+1); else if(dx>w*.18||(fast&&dx>0)) go(cur-1); else go(cur); }
+  else if(horiz===null && e && e.type==='pointerup' && cur!==SIM){ const now=Date.now(); if(now-lastTap<350){ lastTap=0; openZoom(); } else lastTap=now; }
   x0=null; horiz=null; }
-vp.addEventListener('pointerup',end); vp.addEventListener('pointercancel',end); vp.addEventListener('lostpointercapture',end);
+vp.addEventListener('pointerup',end); vp.addEventListener('pointercancel',end); vp.addEventListener('lostpointercapture',()=>{ if(x0!==null) end(null); });
 addEventListener('message',e=>{ if(e.data&&typeof e.data.vellNav==='number'&&e.source===slides[SIM].querySelector('iframe')?.contentWindow) go(cur+e.data.vellNav); });
-// abrir en la lámina del enlace (#7 = simulación)
 const h=parseInt(location.hash.slice(1),10); go(isNaN(h)?0:h-1,true);
 addEventListener('hashchange',()=>{const n=parseInt(location.hash.slice(1),10); if(!isNaN(n)&&n-1!==cur) go(n-1,true);});
 })();
