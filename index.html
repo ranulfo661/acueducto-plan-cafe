@@ -55,25 +55,50 @@ canvas{position:absolute;left:84px}
 #end li b{font-family:'Archivo Black';font-weight:400;font-size:40px;color:var(--oc)}
 #end li span{font-weight:600;font-size:28px;color:var(--gr);flex:1;margin-left:28px}
 #end li i{font-style:normal;font-family:'Archivo Black';font-size:34px}
-body.video .btns button{cursor:default}
+body.video .technical{display:contents}body.video .technical summary,body.video .technical .helper{display:none}body.video .diagram{display:contents;border:0;padding:0;margin:0}body.video .btns button{cursor:default}
 body.video #play{display:none}
+
+/* Interfaz web adaptable; la composición original se conserva en ?video=1. */
+body:not(.video){height:auto;overflow:auto}
+body:not(.video) #wrap{position:static;display:block;padding:0!important}
+body:not(.video) #stage{width:min(1120px,100%);height:auto;margin:auto;padding:32px 24px 48px;transform:none!important}
+body:not(.video) .hd,body:not(.video) .rule,body:not(.video) h1,body:not(.video) .sub,body:not(.video) .acc,body:not(.video) .btns,body:not(.video) canvas,body:not(.video) #card,body:not(.video) .note,body:not(.video) .src{position:static}
+body:not(.video) .hd{gap:12px;flex-wrap:wrap}body:not(.video) .lbl{font-size:12px;letter-spacing:.18em}body:not(.video) .cnt{font-size:12px;color:var(--gr)}
+body:not(.video) .rule{margin:18px 0 28px;height:1px}body:not(.video) h1{font-size:clamp(38px,7vw,78px);line-height:1.03;max-width:900px}
+body:not(.video) .sub{font-size:clamp(18px,3vw,25px);margin:20px 0;line-height:1.5}body:not(.video) .acc{width:70px;height:5px;margin-bottom:24px}
+.intro{font-size:17px;line-height:1.65;max-width:760px}.eyebrow{font-size:13px;letter-spacing:.12em;color:var(--gr);margin-bottom:12px}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0}.metric{border-top:2px solid var(--oc);padding:16px 0}.metric strong{display:block;font-size:30px}.metric span{font-size:14px;line-height:1.5;color:var(--gr)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}button,.action{font:700 15px Archivo,sans-serif;min-height:48px;padding:12px 18px;border:2px solid var(--az);border-radius:6px;color:var(--az);background:var(--cr);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.primary{background:var(--az);color:var(--cr)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--ro);outline-offset:4px}
+h2.section{font-size:clamp(25px,4vw,36px);margin:40px 0 14px}.helper{font-size:15px;line-height:1.6;color:var(--gr);margin:10px 0}
+body:not(.video) .btns{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:20px 0}body:not(.video) .btns button{height:auto;min-height:48px;font-size:16px;padding:10px 4px}body:not(.video) .btns button.on{background:var(--az);border-color:var(--az);color:var(--cr)}
+body:not(.video) #card{height:auto;min-height:150px;padding:22px 0;gap:20px;margin:16px 0;align-items:flex-start}body:not(.video) #badge{width:auto;min-width:85px;font-size:36px!important}body:not(.video) #ctit{font-size:22px;line-height:1.4}body:not(.video) #cst{font-size:15px;line-height:1.6}body:not(.video) #cmo{font-size:24px;line-height:1.5;margin-top:12px}
+.diagram{overflow:auto;border:1px solid var(--gr);border-radius:8px;margin:16px 0;padding:12px}body:not(.video) .diagram canvas{display:block;max-width:none;width:100%;height:auto;min-width:760px}.legend{font-size:14px;line-height:1.7;margin:12px 0}.legend span{display:inline-block;margin-right:18px}.technical{margin:32px 0;border-top:1px solid var(--gr);border-bottom:1px solid var(--gr);padding:20px 0}.technical summary{cursor:pointer;font-size:20px;font-weight:700;min-height:48px;display:list-item}
+body:not(.video) .note{font-size:14px;line-height:1.7;margin:20px 0}body:not(.video) .src{font-size:12px;line-height:1.8;margin-top:24px}body:not(.video) #end{display:none}
+.funding{border-top:3px solid var(--oc);margin-top:40px;padding-top:24px}.funding h2{font-size:34px}.budget{width:100%;border-collapse:collapse;margin:24px 0;font-size:15px}.budget th,.budget td{padding:14px 10px;text-align:left;border-bottom:1px solid var(--gr);line-height:1.5}.budget td:last-child,.budget th:last-child{text-align:right;font-variant-numeric:tabular-nums}.budget tfoot{font-weight:700}.table-wrap{overflow-x:auto}.caution{border-left:4px solid var(--ro);padding:12px 16px;font-size:14px;line-height:1.7;margin:20px 0}.checklist{padding-left:22px;font-size:16px;line-height:1.8}.video .web-only{display:none}
+@media(max-width:600px){body:not(.video) #stage{padding:24px 16px 36px}.metrics{grid-template-columns:repeat(2,1fr)}body:not(.video) .btns{grid-template-columns:repeat(2,1fr)}body:not(.video) .btns .wide{grid-column:1/-1}body:not(.video) #card{display:block}body:not(.video) #badge{margin-bottom:14px}.budget th,.budget td{padding:12px 6px;font-size:13px}.budget td:last-child{white-space:nowrap}.metric strong{font-size:27px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{body:not(.video) #stage{width:100%;padding:0}.actions,.btns{display:none!important}.diagram{overflow:visible}.diagram canvas{min-width:0;width:100%}details>*{display:block!important}.funding{break-inside:avoid}}
 </style>
 </head>
 <body>
 <div id="wrap"><div id="stage">
   <div class="hd"><span class="lbl">SIMULACIÓN</span><span class="cnt" id="cnt">SISTEMA COMPLETO</span></div>
   <div class="rule"></div>
-  <h1>Así llega<br>el agua</h1>
+  <p class="eyebrow web-only">PLAN CAFÉ – EL VALLE · REPÚBLICA DOMINICANA</p><h1>Así llega<br>el agua</h1>
   <div class="sub">Por gravedad, sin bombas · del manantial a 11 llaves</div>
   <div class="acc"></div>
-  <div class="btns" id="btns">
+  <div class="web-only"><p class="intro">Un acueducto rural por gravedad para llevar agua desde el manantial hasta las comunidades, con ejecución propuesta en cuatro fases. Explore qué incluye cada fase y su inversión.</p>
+<div class="metrics"><div class="metric"><strong>908</strong><span>habitantes al 2047<br>Proyección de diseño</span></div><div class="metric"><strong>11</strong><span>llaves públicas</span></div><div class="metric"><strong>9 039 m</strong><span>de tubería</span></div><div class="metric"><strong>14 meses</strong><span>plazo de las cuatro fases</span></div></div>
+<div class="actions"><a class="action primary" href="#financiamiento">Ver inversión por fase</a><button id="play" type="button">▶ Ver recorrido · 28 s</button><button id="pause" type="button" aria-pressed="false">Pausar animación</button></div>
+<h2 class="section">Del manantial a las comunidades</h2><p class="helper">Seleccione una fase. El mapa acumula las fases anteriores: ocre = fase seleccionada; gris continuo = fases anteriores; punteado = fases posteriores. En «Completo» se muestran todas.</p></div><noscript><p class="caution">Active JavaScript para explorar el mapa y las fases. La inversión total y los datos generales siguen disponibles en esta página.</p></noscript><div class="btns" id="btns" role="group" aria-label="Seleccionar fase del proyecto">
     <button data-p="1">Fase 1</button><button data-p="2">Fase 2</button><button data-p="3">Fase 3</button><button data-p="4">Fase 4</button><button data-p="5" class="wide">Completo</button>
   </div>
-  <canvas id="map" width="912" height="590"></canvas>
-  <div id="card"><div id="badge">F1</div><div><div id="ctit"></div><div id="cst"></div><div id="cmo"></div></div></div>
-  <canvas id="prof" width="912" height="420"></canvas>
-  <div class="note">Animación ilustrativa basada en la memoria de cálculo; no sustituye el modelo hidráulico. <span id="play">▶ Ver recorrido</span></div>
-  <div class="src">Fuente: Planos R4.1 (PR-01, PP-01 a PP-03, PT-01) · Memoria de cálculo R4.1 §3–§8 · Adenda R4.1-b · Presupuesto R4.1-b CLIENTE. Velocidad de las partículas proporcional al caudal de diseño de cada tramo.</div>
+  <div class="diagram" tabindex="0" role="region" aria-label="Mapa del acueducto; desplazable horizontalmente en teléfono"><canvas id="map" width="912" height="590" role="img" aria-label="Trazado desde el manantial Usebia hacia Sijo, Pinalito, El Valle, Plan Café y meseta. Consulte los alcances de cada fase debajo.">Mapa del acueducto.</canvas></div><p class="helper web-only">En teléfono, deslice el mapa hacia los lados para leer sus rótulos.</p><div class="legend web-only"><span>○ Llave pública</span><span>■ Tanque / cámara rompe presión</span><span>● Partículas: movimiento ilustrativo del agua</span></div>
+  <div id="card" aria-live="polite" aria-atomic="true"><div id="badge">F1–F4</div><div><div id="ctit">Sistema completo · todo por gravedad</div><div id="cst">9 039 m · 11 llaves · 908 hab. al 2047 · 14 meses</div><div id="cmo">RD$ 16,500,000 a conseguir</div></div></div>
+  <details class="technical"><summary>Cómo funciona por gravedad · perfil hidráulico</summary><p class="helper web-only">El desnivel aporta energía al agua; las cámaras rompe presión reducen la presión entre tramos. La línea piezométrica representa la energía del agua y la línea gris, el terreno y la tubería. En fase 3 se muestra el ramal Plan Café; en las otras vistas, el eje principal. El sistema tiene 6 cámaras rompe presión: 5 en el eje principal y 1 en el ramal de Plan Café.</p><div class="diagram" tabindex="0" role="region" aria-label="Perfil hidráulico desplazable"><canvas id="prof" width="912" height="420" role="img" aria-label="Perfil hidráulico con cotas en metros y distancia en kilómetros.">Perfil hidráulico del proyecto.</canvas></div></details>
+  <div class="note">Animación ilustrativa basada en la memoria de cálculo; no sustituye el modelo hidráulico.</div>
+  <section id="financiamiento" class="funding web-only"><p class="eyebrow">INVERSIÓN PROPUESTA</p><h2>Apadrina una fase</h2><p class="intro">RD$ 16,500,000 a conseguir · 14 meses. Las fases forman un sistema conectado; revise el alcance y las dependencias antes de acordar un aporte.</p><div class="table-wrap"><table class="budget"><thead><tr><th scope="col">Fase</th><th scope="col">Alcance / plazo</th><th scope="col">Inversión</th></tr></thead><tbody id="budget-rows"></tbody><tfoot><tr><th colspan="2" scope="row">Total · cuatro fases</th><td>RD$ 16,500,000</td></tr></tfoot></table></div><h3>Para evaluar el financiamiento</h3><p class="helper">La simulación explica la propuesta. Para tomar una decisión, conviene acompañarla con:</p><ul class="checklist"><li>Diagnóstico del servicio actual y población beneficiaria actual, diferenciada de la proyección al 2047.</li><li>Presupuesto detallado, cronograma y condiciones de ejecución de cada fase.</li><li>Responsable del proyecto, contacto y entidad que administrará los aportes.</li><li>Plan de operación, mantenimiento, tratamiento y control de calidad del agua.</li><li>Documentación de disponibilidad de la fuente, permisos y validación técnica.</li></ul><div class="actions"><button type="button" id="print">Imprimir / guardar resumen en PDF</button><a class="action" href="#btns">Volver a las fases</a></div></section><div class="src">Fuente: Planos R4.1 (PR-01, PP-01 a PP-03, PT-01) · Memoria de cálculo R4.1 §3–§8 · Adenda R4.1-b · Presupuesto R4.1-b CLIENTE. Velocidad de las partículas proporcional al caudal de diseño de cada tramo.</div>
   <div id="end">
     <h2>Apadrina<br>una fase</h2>
     <div class="es">RD$ 16,500,000 en 4 fases · 14 meses</div>
@@ -94,14 +119,7 @@ const qAt = k => { for (const [a,c,q] of D.QT) if (k >= a-1e-6 && k < c-1e-6) re
 if (VIDEO) document.body.classList.add('video');
 
 // ---------- escala de la escena al tamaño de la pantalla
-function fit(){
-  const st = document.getElementById('stage');
-  if (VIDEO){ st.style.transform='none'; return; }
-  const s = Math.min(innerWidth/1080, innerHeight/1920);
-  st.style.transform = `scale(${s})`;
-  document.getElementById('wrap').style.paddingLeft = Math.max(0,(innerWidth-1080*s)/2)+'px';
-  document.getElementById('wrap').style.justifyContent='flex-start';
-}
+function fit(){ document.getElementById('stage').style.transform='none'; }
 addEventListener('resize', fit); fit();
 
 // ---------- mapa: proyección UTM -> lienzo
@@ -140,7 +158,7 @@ function setCard(p){
   document.getElementById('cst').textContent = c[2];
   document.getElementById('cmo').textContent = c[3];
   document.getElementById('cnt').textContent = p===5 ? 'SISTEMA COMPLETO' : `FASE ${p} / 4`;
-  document.querySelectorAll('#btns button').forEach(b => b.classList.toggle('on', +b.dataset.p === p));
+  document.querySelectorAll('#btns button').forEach(b => (b.classList.toggle('on', +b.dataset.p === p), b.setAttribute('aria-pressed', String(+b.dataset.p === p))));
 }
 
 // ---------- dibujo del mapa
@@ -220,6 +238,7 @@ function drawMap(t){
   g.lineWidth=2; g.beginPath(); g.moveTo(0,y0-8); g.lineTo(0,y0+8); g.moveTo(sb,y0-8); g.lineTo(sb,y0+8); g.stroke();
   txt(g,'1 km', sb/2, y0-12, "17px 'JetBrains Mono'", C.az, 'center');
   // leyenda
+  if (!VIDEO) return;
   let lx = 250;
   g.beginPath(); g.arc(lx, y0-6, 7.5, 0, 7); g.fillStyle=C.cr; g.fill(); g.lineWidth=3; g.strokeStyle=C.az; g.stroke();
   txt(g,'llave pública', lx+16, y0, "600 19px 'Archivo'", C.az);
@@ -237,7 +256,7 @@ function drawProfile(t){
   const X0 = 64, X1 = PW-8, TOP = 46, BOT = PH-44;
   const kmax = ramal ? 2.1 : 4.8, zlo = ramal ? 1060 : 1080, zhi = ramal ? 1250 : 1530;
   const X = k => X0 + (X1-X0)*k/kmax, Y = z => BOT - (BOT-TOP)*(z-zlo)/(zhi-zlo);
-  txt(g, ramal ? 'PERFIL · RAMAL PLAN CAFÉ (EMPALME → TANQUE) · COTAS EN m' : 'PERFIL HIDRÁULICO · EJE PRINCIPAL (TOMA → EL VALLE) · COTAS EN m', 0, 20, "500 17px 'JetBrains Mono'", C.oc, 'left', '1px');
+  txt(g, ramal ? 'PERFIL · RAMAL PLAN CAFÉ (EMPALME → TANQUE) · COTAS EN m' : 'PERFIL HIDRÁULICO · EJE PRINCIPAL (TOMA → EL VALLE) · COTAS EN m', 0, 20, "500 14px 'JetBrains Mono'", C.oc, 'left', '1px');
   // rejilla
   g.setLineDash([2,6]); g.strokeStyle=C.ln; g.lineWidth=1;
   const step = ramal ? 25 : 100;
@@ -300,14 +319,14 @@ function drawProfile(t){
     txt(g,'el agua sube sola: la empuja el nivel de la CRP-N', X(0.02), Y(1240)+4, "700 18px 'Archivo'", C.az);
   }
   // leyenda
-  const lx = ramal ? X0+500 : X0+460, ly = ramal ? TOP+44 : TOP+20;
+  const lx = ramal ? X0+440 : X0+400, ly = ramal ? TOP+44 : TOP+20;
   g.strokeStyle=C.az; g.lineWidth=3.5; g.beginPath(); g.moveTo(lx,ly); g.lineTo(lx+34,ly); g.stroke();
-  txt(g,'línea piezométrica (energía del agua)', lx+44, ly+6, "600 17px 'Archivo'", C.az);
+  txt(g,'línea piezométrica (energía del agua)', lx+44, ly+6, "600 15px 'Archivo'", C.az);
   g.strokeStyle=C.gr; g.lineWidth=2.5; g.beginPath(); g.moveTo(lx,ly+28); g.lineTo(lx+34,ly+28); g.stroke();
-  txt(g,'terreno y tubería', lx+44, ly+34, "600 17px 'Archivo'", C.az);
+  txt(g,'terreno y tubería', lx+44, ly+34, "600 15px 'Archivo'", C.az);
   if (!ramal){
-    [[C.az,'presión en norma (10–50 m)'],[C.oc,'al límite'],[C.ro,'bajo el mínimo']].forEach(([c,s],i)=>{
-      g.beginPath(); g.arc(lx+17, ly+56+i*26, 7, 0, 7); g.fillStyle=c; g.fill(); txt(g,s, lx+44, ly+62+i*26, "600 17px 'Archivo'", C.az);
+    [[C.az,'presión dentro de norma (10–50 m)'],[C.oc,'al límite'],[C.ro,'bajo el mínimo']].forEach(([c,s],i)=>{
+      g.beginPath(); g.arc(lx+17, ly+56+i*26, 7, 0, 7); g.fillStyle=c; g.fill(); txt(g,s, lx+44, ly+62+i*26, "600 15px 'Archivo'", C.az);
     });
   }
 }
@@ -329,25 +348,30 @@ function scripted(t){
 }
 window.renderFrame = t => scripted(t);
 
-let mode = VIDEO ? 'video' : 'live', t0 = performance.now()/1000, tourStart = 0;
-function loop(){
-  const t = performance.now()/1000 - t0;
-  if (mode === 'tour'){ const tt = t - tourStart; if (tt > T_TOTAL){ mode='live'; document.getElementById('end').style.opacity=0; select(5,t); } else scripted(tt); }
-  else frame(t);
+let mode = VIDEO ? 'video' : 'live', clock = 0, last = null, tourStart = 0;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+let paused = reduced.matches;
+const pauseButton = document.getElementById('pause');
+function pauseLabel(){pauseButton.textContent = paused ? 'Reanudar animación' : 'Pausar animación';pauseButton.setAttribute('aria-pressed',String(paused));}
+function manual(p){mode='live';cur=-1;document.getElementById('end').style.opacity=0;tTank1=clock-3;tTank2=p>=3?clock-3:null;select(p,clock);frame(clock);}
+function loop(now){
+  const dt=last===null?0:Math.min((now-last)/1000,.1);last=now;
+  if(!paused && !document.hidden) clock+=dt;
+  if(mode==='tour'){
+    const tt=clock-tourStart;
+    if(tt>T_TOTAL){manual(5);document.getElementById('play').textContent='▶ Repetir recorrido · 28 s';}
+    else {scripted(tt);if(tt>=T_END){document.getElementById('ctit').textContent='Apadrina una fase · sistema completo';}}
+  } else frame(clock);
   requestAnimationFrame(loop);
 }
-document.getElementById('btns').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b || VIDEO) return;
-  mode = 'live'; document.getElementById('end').style.opacity = 0;
-  const t = performance.now()/1000 - t0; select(+b.dataset.p, t);
-});
-document.getElementById('play').addEventListener('click', () => { mode='tour'; cur=-1; tourStart = performance.now()/1000 - t0; });
-addEventListener('keydown', e => { const n = +e.key; if (n>=1 && n<=5 && !VIDEO){ mode='live'; select(n, performance.now()/1000 - t0); } });
-
-document.fonts.ready.then(() => {
-  if (VIDEO){ window.READY = true; scripted(0); return; }
-  tTank1 = 0; tTank2 = 0; select(5, 0); requestAnimationFrame(loop);
-});
+document.getElementById('btns').addEventListener('click',e=>{const b=e.target.closest('button');if(b&&!VIDEO)manual(+b.dataset.p);});
+document.getElementById('play').addEventListener('click',()=>{mode='tour';cur=-1;tourStart=clock;paused=false;pauseLabel();document.getElementById('play').textContent='↻ Reiniciar recorrido';});
+pauseButton.addEventListener('click',()=>{paused=!paused;pauseLabel();});
+reduced.addEventListener('change',e=>{paused=e.matches;pauseLabel();});
+addEventListener('keydown',e=>{if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.altKey||e.metaKey)return;const n=+e.key;if(n>=1&&n<=5&&!VIDEO)manual(n);});
+document.getElementById('print').addEventListener('click',()=>{const d=document.querySelector('details');const wasOpen=d.open;d.open=true;window.print();d.open=wasOpen;});
+for(let p=1;p<=4;p++){const c=CARD[p],tr=document.createElement('tr');for(const val of [c[0],c[1]+' · '+c[2],c[3]]){const td=document.createElement('td');td.textContent=val;tr.append(td);}document.getElementById('budget-rows').append(tr);}
+document.fonts.ready.then(()=>{if(VIDEO){document.querySelector('details').open=true;window.READY=true;scripted(0);return;}pauseLabel();manual(5);requestAnimationFrame(loop);});
 </script>
 </body>
 </html>
